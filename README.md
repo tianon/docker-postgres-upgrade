@@ -38,7 +38,7 @@ $ docker run --rm \
 
 ---
 
-If your two directories do not follow this structure (denoted below as `PGDATAOLD` and `PGDATANEW`), then the following may also be used (but will be slower):
+If your two directories (denoted below as `PGDATAOLD` and `PGDATANEW`) do not follow this structure, then the following may also be used (but will be slower):
 
 ```console
 $ docker run --rm \
