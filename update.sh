@@ -27,5 +27,6 @@ for i in "${!supportedVersions[@]}"; do
 			-e "s!%%POSTGRES_NEW%%!$new!g" \
 			Dockerfile.template \
 			> "$dir/Dockerfile"
+		cp docker-upgrade "$dir/"
 	done
 done
