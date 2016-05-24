@@ -13,7 +13,9 @@ ENV PGDATAOLD /var/lib/postgresql/%%POSTGRES_OLD%%/data
 ENV PGDATANEW /var/lib/postgresql/%%POSTGRES_NEW%%/data
 
 RUN mkdir -p "$PGDATAOLD" "$PGDATANEW" \
-	&& chown -R postgres:postgres "$PGDATAOLD" "$PGDATANEW"
+	&& chown -R postgres:postgres /var/lib/postgresql
+
+WORKDIR /var/lib/postgresql
 
 USER postgres
 CMD ["pg_upgrade"]
