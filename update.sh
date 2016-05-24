@@ -13,6 +13,9 @@ supportedVersions=(
 
 for i in "${!supportedVersions[@]}"; do
 	old="${supportedVersions[$i]}"
+	docker pull "postgres:$old" > /dev/null
+	oldVersion="$(docker run --rm "postgres:$old" sh -c 'echo $PG_VERSION')"
+	echo "# $old ($oldVersion)"
 	(( j = i + 1 ))
 	for new in "${supportedVersions[@]:$j}"; do
 		dir="$old-to-$new"
@@ -20,6 +23,7 @@ for i in "${!supportedVersions[@]}"; do
 		mkdir -p "$dir"
 		sed \
 			-e "s!%%POSTGRES_OLD%%!$old!g" \
+			-e "s!%%POSTGRES_OLD_VERSION%%!$oldVersion!g" \
 			-e "s!%%POSTGRES_NEW%%!$new!g" \
 			Dockerfile.template \
 			> "$dir/Dockerfile"
