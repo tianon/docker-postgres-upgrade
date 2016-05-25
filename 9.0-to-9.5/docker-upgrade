@@ -8,6 +8,7 @@ fi
 if [ "$1" = 'pg_upgrade' -a "$(id -u)" = '0' ]; then
 	mkdir -p "$PGDATAOLD" "$PGDATANEW"
 	chmod 700 "$PGDATAOLD" "$PGDATANEW"
+	chown postgres .
 	chown -R postgres "$PGDATAOLD" "$PGDATANEW"
 	exec gosu postgres "$BASH_SOURCE" "$@"
 fi
