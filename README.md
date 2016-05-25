@@ -61,3 +61,47 @@ $ docker run --rm \
 ```
 
 (which assumes that your previous `postgres:9.4` instance was running with `-v /mnt/bigdrive/postgresql-9.4:/var/lib/postgresql/data`, and your new `postgres:9.5` instance will run with `-v /mnt/bigdrive/postgresql-9.5:/var/lib/postgresql/data`)
+
+---
+
+Putting it all together:
+
+```console
+$ mkdir -p postgres-upgrade-testing
+$ cd postgres-upgrade-testing
+$ OLD='9.4'
+$ NEW='9.5'
+
+$ docker pull "postgres:$OLD"
+$ docker run -dit \
+	--name postgres-upgrade-testing \
+	-v "$PWD/$OLD/data":/var/lib/postgresql/data \
+	"postgres:$OLD"
+$ sleep 5
+$ docker logs --tail 100 postgres-upgrade-testing
+
+$ # let's get some testing data in there
+$ docker exec -it \
+	-u postgres \
+	postgres-upgrade-testing \
+	pgbench -i -s 10
+
+$ docker stop postgres-upgrade-testing
+$ docker rm postgres-upgrade-testing
+
+$ docker run --rm \
+	-v "$PWD":/var/lib/postgresql \
+	"tianon/postgres-upgrade:$OLD-to-$NEW" \
+	--link
+
+$ docker pull "postgres:$NEW"
+$ docker run -dit \
+	--name postgres-upgrade-testing \
+	-v "$PWD/$NEW/data":/var/lib/postgresql/data \
+	"postgres:$NEW"
+$ sleep 5
+$ docker logs --tail 100 postgres-upgrade-testing
+
+$ # can now safely remove "$OLD"
+$ sudo rm -rf "$OLD"
+```
