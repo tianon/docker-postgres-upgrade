@@ -3,7 +3,6 @@ set -e
 
 # TODO scrape this somehow
 supportedVersions=(
-	9.0 # TODO decide when it's OK to delete EOL versions
 	9.1
 	9.2
 	9.3
