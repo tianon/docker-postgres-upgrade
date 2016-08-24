@@ -4,6 +4,7 @@ RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg 9.3' > /etc/a
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		postgresql-9.3=9.3.14-1.pgdg80+1 \
+		postgresql-contrib-9.3=9.3.14-1.pgdg80+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/9.3/bin
