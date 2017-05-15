@@ -3,8 +3,8 @@ FROM postgres:9.3
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg 9.2' > /etc/apt/sources.list.d/postgres-9.2.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-9.2=9.2.20-1.pgdg80+1 \
-		postgresql-contrib-9.2=9.2.20-1.pgdg80+1 \
+		postgresql-9.2=9.2.21-1.pgdg80+1 \
+		postgresql-contrib-9.2=9.2.21-1.pgdg80+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/9.2/bin
