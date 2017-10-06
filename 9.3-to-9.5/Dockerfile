@@ -1,6 +1,6 @@
 FROM postgres:9.5
 
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg 9.3' > /etc/apt/sources.list.d/postgres-9.3.list
+RUN sed -i 's/$/ 9.3/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		postgresql-9.3=9.3.19-1.pgdg80+1 \
