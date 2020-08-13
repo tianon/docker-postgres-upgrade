@@ -3,8 +3,8 @@ FROM postgres:11
 RUN sed -i 's/$/ 9.6/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-9.6=9.6.19-0+deb9u1 \
-		postgresql-contrib-9.6=9.6.19-0+deb9u1 \
+		postgresql-9.6=9.6.19-1.pgdg90+1 \
+		postgresql-contrib-9.6=9.6.19-1.pgdg90+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/9.6/bin

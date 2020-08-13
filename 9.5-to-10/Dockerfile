@@ -3,8 +3,8 @@ FROM postgres:10
 RUN sed -i 's/$/ 9.5/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-9.5=9.5.22-1.pgdg90+1 \
-		postgresql-contrib-9.5=9.5.22-1.pgdg90+1 \
+		postgresql-9.5=9.5.23-1.pgdg90+1 \
+		postgresql-contrib-9.5=9.5.23-1.pgdg90+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/9.5/bin
