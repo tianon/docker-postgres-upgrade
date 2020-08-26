@@ -77,6 +77,7 @@ $ NEW='9.5'
 $ docker pull "postgres:$OLD"
 $ docker run -dit \
 	--name postgres-upgrade-testing \
+	-e POSTGRES_PASSWORD=password \
 	-v "$PWD/$OLD/data":/var/lib/postgresql/data \
 	"postgres:$OLD"
 $ sleep 5
@@ -99,6 +100,7 @@ $ docker run --rm \
 $ docker pull "postgres:$NEW"
 $ docker run -dit \
 	--name postgres-upgrade-testing \
+	-e POSTGRES_PASSWORD=password \
 	-v "$PWD/$NEW/data":/var/lib/postgresql/data \
 	"postgres:$NEW"
 $ sleep 5
