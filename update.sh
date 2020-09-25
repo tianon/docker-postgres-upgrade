@@ -3,6 +3,7 @@ set -Eeuo pipefail
 
 # TODO scrape this somehow?
 supportedVersions=(
+	13
 	12
 	11
 	10
