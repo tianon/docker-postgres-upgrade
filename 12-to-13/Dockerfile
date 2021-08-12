@@ -3,7 +3,7 @@ FROM postgres:13
 RUN sed -i 's/$/ 12/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-12=12.7-1.pgdg100+1 \
+		postgresql-12=12.8-1.pgdg100+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/12/bin
