@@ -1,4 +1,4 @@
-FROM postgres:%%POSTGRES_NEW%%
+FROM postgres:%%POSTGRES_NEW%%-%%SUITE%%
 
 RUN sed -i 's/$/ %%POSTGRES_OLD%%/' /etc/apt/sources.list.d/pgdg.list
 
