@@ -3,7 +3,7 @@ FROM postgres:13-bullseye
 RUN sed -i 's/$/ 12/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-12=12.8-1.pgdg110+1 \
+		postgresql-12=12.9-1.pgdg110+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/12/bin
