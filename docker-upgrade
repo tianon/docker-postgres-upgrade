@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+for arg in "$@"; do
+	shift
+	[[ "${arg}" =~ --timescaledb-version=([0-9\.]+)$ ]] && _TIMESCALEDB_VERSION="${BASH_REMATCH[1]}" && continue
+	set -- "$@" "$arg"
+done
+
 if [ "$#" -eq 0 -o "${1:0:1}" = '-' ]; then
 	set -- pg_upgrade "$@"
 fi
@@ -10,12 +16,21 @@ if [ "$1" = 'pg_upgrade' -a "$(id -u)" = '0' ]; then
 	chmod 700 "$PGDATAOLD" "$PGDATANEW"
 	chown postgres .
 	chown -R postgres "$PGDATAOLD" "$PGDATANEW"
+	if [ -n "${_TIMESCALEDB_VERSION}" ]; then
+		echo "deb https://packagecloud.io/timescale/timescaledb/debian/ %%SUITE%% main" > /etc/apt/sources.list.d/timescaledb.list
+		wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add -
+		apt-get update
+		apt-get install -y timescaledb-2-${_TIMESCALEDB_VERSION}-postgresql-%%POSTGRES_OLD%% timescaledb-2-${_TIMESCALEDB_VERSION}-postgresql-%%POSTGRES_NEW%%
+	fi
 	exec gosu postgres "$BASH_SOURCE" "$@"
 fi
 
 if [ "$1" = 'pg_upgrade' ]; then
 	if [ ! -s "$PGDATANEW/PG_VERSION" ]; then
 		PGDATA="$PGDATANEW" eval "initdb $POSTGRES_INITDB_ARGS"
+		mkdir ${PGDATANEW}/new_conf/
+		mv ${PGDATANEW}/*.conf ${PGDATANEW}/new_conf/
+		cp -p ${PGDATAOLD}/pg_hba.conf.conf ${PGDATAOLD}/postgresql.conf ${PGDATANEW}/
 	fi
 fi
 

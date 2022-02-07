@@ -8,6 +8,11 @@ In order to get good performance, it is recommended to run this image with `dock
 
 For this to be feasible, your directory structure should look something like this: (if yours does not, either adjust it, or scroll down to see the alternate pattern for running this image)
 
+The additional parameter --timescaledb-version is available and should be run as follows :
+	--timescaledb-version=2.5.1
+2.5.1 corresponding to the version of timescaledb. Your current version is available in PostgreSQL witht the command: \dx
+This parameter requires Internet access because it downloads timescaledb package before upgrading
+
 ```console
 $ find DIR -mindepth 2 -maxdepth 2
 DIR/OLD/data

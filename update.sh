@@ -37,14 +37,14 @@ for i in "${!supportedVersions[@]}"; do
 			continue
 		fi
 		mkdir -p "$dir"
-		sed \
+		cp -p Dockerfile.template "$dir/Dockerfile"
+		cp -p docker-upgrade "$dir/docker-upgrade"
+		sed -i \
 			-e "s!%%POSTGRES_OLD%%!$old!g" \
 			-e "s!%%POSTGRES_OLD_VERSION%%!$oldVersion!g" \
 			-e "s!%%POSTGRES_NEW%%!$new!g" \
 			-e "s!%%SUITE%%!$suite!g" \
-			Dockerfile.template \
-			> "$dir/Dockerfile"
-		cp docker-upgrade "$dir/"
+			"$dir/Dockerfile" "$dir/docker-upgrade"
 		if [[ "$old" != 9.* ]]; then
 			sed -i '/postgresql-contrib-/d' "$dir/Dockerfile"
 		fi

@@ -5,6 +5,8 @@ RUN sed -i 's/$/ %%POSTGRES_OLD%%/' /etc/apt/sources.list.d/pgdg.list
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		postgresql-%%POSTGRES_OLD%%=%%POSTGRES_OLD_VERSION%% \
 		postgresql-contrib-%%POSTGRES_OLD%%=%%POSTGRES_OLD_VERSION%% \
+		wget \
+		ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/%%POSTGRES_OLD%%/bin
