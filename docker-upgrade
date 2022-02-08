@@ -29,8 +29,9 @@ if [ "$1" = 'pg_upgrade' ]; then
 	if [ ! -s "$PGDATANEW/PG_VERSION" ]; then
 		PGDATA="$PGDATANEW" eval "initdb $POSTGRES_INITDB_ARGS"
 		mkdir ${PGDATANEW}/new_conf/
-		mv ${PGDATANEW}/*.conf ${PGDATANEW}/new_conf/
-		cp -p ${PGDATAOLD}/pg_hba.conf.conf ${PGDATAOLD}/postgresql.conf ${PGDATANEW}/
+		cp -p ${PGDATANEW}/*.conf ${PGDATANEW}/new_conf/
+		[ -e ${PGDATAOLD}/pg_hba.conf.conf ] && cp -p ${PGDATAOLD}/pg_hba.conf ${PGDATANEW}/
+		[ -e ${PGDATAOLD}/postgresql.conf ] && cp -p ${PGDATAOLD}/postgresql.conf ${PGDATANEW}/
 	fi
 fi
 
