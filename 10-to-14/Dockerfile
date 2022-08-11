@@ -3,7 +3,7 @@ FROM postgres:14-bullseye
 RUN sed -i 's/$/ 10/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-10=10.21-1.pgdg110+1 \
+		postgresql-10=10.22-1.pgdg110+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/10/bin
