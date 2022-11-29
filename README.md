@@ -1,5 +1,7 @@
 # `pg_upgrade`, Docker style
 
+This is a PoC for using `pg_upgrade` inside Docker -- learn from it, adapt it for your needs; don't expect it to work as-is!
+
 (Source for this image is available at [https://github.com/tianon/docker-postgres-upgrade](https://github.com/tianon/docker-postgres-upgrade).)
 
 Tags of this image are of the format `OLD-to-NEW`, where `OLD` represents the version of PostgreSQL you are _currently_ running, and `NEW` represents the version of PostgreSQL you would like to upgrade to.
