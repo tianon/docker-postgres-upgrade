@@ -1,9 +1,9 @@
-FROM postgres:14-bullseye
+FROM postgres:14-bookworm
 
 RUN sed -i 's/$/ 10/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-10=10.23-2.pgdg110+1 \
+		postgresql-10=10.23-2.pgdg120+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/10/bin

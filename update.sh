@@ -15,7 +15,7 @@ supportedVersions=(
 	#9.3
 	#9.2
 )
-suite='bullseye'
+suite='bookworm'
 
 for i in "${!supportedVersions[@]}"; do
 	new="${supportedVersions[$i]}"
@@ -47,7 +47,7 @@ for i in "${!supportedVersions[@]}"; do
 			> "$dir/Dockerfile"
 		cp docker-upgrade "$dir/"
 		if [[ "$old" != 9.* ]]; then
-			sed -i '/postgresql-contrib-/d' "$dir/Dockerfile"
+			sed -i -e '/postgresql-contrib-/d' "$dir/Dockerfile"
 		fi
 	done
 done
