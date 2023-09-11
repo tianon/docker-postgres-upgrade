@@ -15,7 +15,7 @@ supportedVersions=(
 	#9.3
 	#9.2
 )
-suite='bullseye'
+suite='bookworm'
 
 for i in "${!supportedVersions[@]}"; do
 	new="${supportedVersions[$i]}"

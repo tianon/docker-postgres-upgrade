@@ -1,9 +1,9 @@
-FROM postgres:15-bullseye
+FROM postgres:15-bookworm
 
 RUN sed -i 's/$/ 11/' /etc/apt/sources.list.d/pgdg.list
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-11=11.21-1.pgdg110+1 \
+		postgresql-11=11.21-1.pgdg120+1 \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV PGBINOLD /usr/lib/postgresql/11/bin
