@@ -1,52 +1,59 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# TODO scrape this somehow?
-supportedVersions=(
-	16
-	15
-	14
-	13
-	12
-	11
-	#10
-	#9.6
-	#9.5
-	#9.4
-	#9.3
-	#9.2
-)
-suite='bookworm'
+doiCommit="$(git ls-remote https://github.com/docker-library/official-images.git HEAD | cut -d$'\t' -f1)"
+doiPostgres="https://github.com/docker-library/official-images/raw/$doiCommit/library/postgres"
+versions="$(
+	bashbrew list "$doiPostgres" | jq -nR '
+		[
+			inputs
+			# filter tags down to just "N-XXX" (capturing "version" and "debian suite")
+			| capture(":(?<version>[0-9]+)-(?<suite>[a-z].*)$")
+			| select(.suite | startswith("alpine") | not)
+		]
+	'
+)"
+supportedVersions="$(jq <<<"$versions" -r '[ .[].version | tonumber ] | unique | reverse | map(@sh) | join(" ")')"
+eval "supportedVersions=( $supportedVersions )"
 
 json='{}'
 
 for i in "${!supportedVersions[@]}"; do
 	new="${supportedVersions[$i]}"
-	echo "# $new"
-	docker pull "postgres:$new-$suite" > /dev/null
+	export new
+	suites="$(jq <<<"$versions" -c '[ .[] | select(.version == env.new).suite ]')"
+	echo "# $new (possible suites: $suites)"
 	(( j = i + 1 ))
 	for old in "${supportedVersions[@]:$j}"; do
-		dir="$old-to-$new"
-		echo "- $old -> $new ($dir)"
+		export old
+		suite="$(jq <<<"$versions" --argjson suites "$suites" -r '
+			first(
+				.[]
+				| select(
+					.version == env.old
+						and (
+							.suite as $suite
+							| $suites | index($suite)
+						)
+				)
+			).suite
+		')"
 		from="postgres:$new-$suite"
-		oldVersion="$(
-			docker run --rm -e OLD="$old" "$from" bash -Eeuo pipefail -c '
-				sed -i "s/\$/ $OLD/" /etc/apt/sources.list.d/pgdg.list
-				apt-get update -qq 2>/dev/null
-				apt-cache policy "postgresql-$OLD" \
-					| awk "\$1 == \"Candidate:\" { print \$2; exit }"
-			'
-		)"
+		dir="$old-to-$new"
+		export suite from dir
+		echo "- $old -> $new ($dir; $suite)"
+		postgresCommit="$(bashbrew cat --format '{{ .TagEntry.GitCommit }}' "$doiPostgres:$old-$suite")"
+		versionsURL="https://github.com/docker-library/postgres/raw/$postgresCommit/versions.json"
+		oldVersion="$(wget -qO- "$versionsURL" | jq -r '.[env.old][env.suite].version // empty')" # TODO arches? (would need to cross-reference $new's arches, but that's fair / not too difficult)
 		echo "  - $oldVersion"
-		if [ "$oldVersion" = '(none)' ]; then
-			continue
-		fi
-		json="$(jq <<<"$json" -c --arg dir "$dir" --arg version "$oldVersion" --arg from "$from" --arg old "$old" --arg new "$new" '
-			.[$dir] = {
-				from: $from,
-				new: $new,
-				old: $old,
-				version: $version,
+		[ -n "$oldVersion" ]
+		export oldVersion
+		json="$(jq <<<"$json" -c '
+			.[env.dir] = {
+				from: env.from,
+				new: env.new,
+				old: env.old,
+				version: env.oldVersion,
 			}
 		')"
 	done
