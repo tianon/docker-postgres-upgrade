@@ -11,7 +11,7 @@ RUN sed -i 's/$/ 12/' /etc/apt/sources.list.d/pgdg.list
 RUN set -eux; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-		postgresql-12='12.18-1.pgdg120+2' \
+		postgresql-12='12.19-1.pgdg120+1' \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
