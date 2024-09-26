@@ -15,11 +15,11 @@ RUN set -eux; \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-ENV PGBINOLD /usr/lib/postgresql/12/bin
-ENV PGBINNEW /usr/lib/postgresql/16/bin
+ENV PGBINOLD=/usr/lib/postgresql/12/bin
+ENV PGBINNEW=/usr/lib/postgresql/16/bin
 
-ENV PGDATAOLD /var/lib/postgresql/12/data
-ENV PGDATANEW /var/lib/postgresql/16/data
+ENV PGDATAOLD=/var/lib/postgresql/12/data
+ENV PGDATANEW=/var/lib/postgresql/16/data
 
 RUN set -eux; \
 	mkdir -p "$PGDATAOLD" "$PGDATANEW"; \
