@@ -1,0 +1,29 @@
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "apply-templates.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
+FROM postgres:15-alpine
+
+RUN set -eux; \
+	apk add --no-cache postgresql13
+
+ENV PGBINOLD /usr/libexec/postgresql13
+ENV PGBINNEW /usr/local/bin
+
+ENV PGDATAOLD /var/lib/postgresql/13/data
+ENV PGDATANEW /var/lib/postgresql/15/data
+
+RUN set -eux; \
+	mkdir -p "$PGDATAOLD" "$PGDATANEW"; \
+	chown -R postgres:postgres /var/lib/postgresql
+
+WORKDIR /var/lib/postgresql
+
+COPY docker-upgrade /usr/local/bin/
+
+ENTRYPOINT ["docker-upgrade"]
+
+# recommended: --link
+CMD ["pg_upgrade"]

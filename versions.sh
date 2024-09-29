@@ -39,8 +39,9 @@ for i in "${!supportedVersions[@]}"; do
 			).suite
 		')"
 		from="postgres:$new-$suite"
+		fromAlpine="postgres:$new-alpine"
 		dir="$old-to-$new"
-		export suite from dir
+		export suite from fromAlpine dir
 		echo "- $old -> $new ($dir; $suite)"
 		postgresCommit="$(bashbrew cat --format '{{ .TagEntry.GitCommit }}' "$doiPostgres:$old-$suite")"
 		versionsURL="https://github.com/docker-library/postgres/raw/$postgresCommit/versions.json"
@@ -51,6 +52,7 @@ for i in "${!supportedVersions[@]}"; do
 		json="$(jq <<<"$json" -c '
 			.[env.dir] = {
 				from: env.from,
+				fromAlpine: env.fromAlpine,
 				new: env.new,
 				old: env.old,
 				version: env.oldVersion,

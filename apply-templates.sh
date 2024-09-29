@@ -39,5 +39,10 @@ for version; do
 		gawk -f "$jqt" Dockerfile.template
 	} > "$version/Dockerfile"
 
+	{
+		generated_warning
+		gawk -f "$jqt" Dockerfile.alpine.template
+	} > "$version/Dockerfile.alpine"
+
 	cp -a docker-upgrade "$version/"
 done

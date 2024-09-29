@@ -1,90 +1,105 @@
 {
   "16-to-17": {
     "from": "postgres:17-bookworm",
+    "fromAlpine": "postgres:17-alpine",
     "new": "17",
     "old": "16",
     "version": "16.4-1.pgdg120+2"
   },
   "15-to-17": {
     "from": "postgres:17-bookworm",
+    "fromAlpine": "postgres:17-alpine",
     "new": "17",
     "old": "15",
     "version": "15.8-1.pgdg120+1"
   },
   "14-to-17": {
     "from": "postgres:17-bookworm",
+    "fromAlpine": "postgres:17-alpine",
     "new": "17",
     "old": "14",
     "version": "14.13-1.pgdg120+1"
   },
   "13-to-17": {
     "from": "postgres:17-bookworm",
+    "fromAlpine": "postgres:17-alpine",
     "new": "17",
     "old": "13",
     "version": "13.16-1.pgdg120+1"
   },
   "12-to-17": {
     "from": "postgres:17-bookworm",
+    "fromAlpine": "postgres:17-alpine",
     "new": "17",
     "old": "12",
     "version": "12.20-1.pgdg120+1"
   },
   "15-to-16": {
     "from": "postgres:16-bookworm",
+    "fromAlpine": "postgres:16-alpine",
     "new": "16",
     "old": "15",
     "version": "15.8-1.pgdg120+1"
   },
   "14-to-16": {
     "from": "postgres:16-bookworm",
+    "fromAlpine": "postgres:16-alpine",
     "new": "16",
     "old": "14",
     "version": "14.13-1.pgdg120+1"
   },
   "13-to-16": {
     "from": "postgres:16-bookworm",
+    "fromAlpine": "postgres:16-alpine",
     "new": "16",
     "old": "13",
     "version": "13.16-1.pgdg120+1"
   },
   "12-to-16": {
     "from": "postgres:16-bookworm",
+    "fromAlpine": "postgres:16-alpine",
     "new": "16",
     "old": "12",
     "version": "12.20-1.pgdg120+1"
   },
   "14-to-15": {
     "from": "postgres:15-bookworm",
+    "fromAlpine": "postgres:15-alpine",
     "new": "15",
     "old": "14",
     "version": "14.13-1.pgdg120+1"
   },
   "13-to-15": {
     "from": "postgres:15-bookworm",
+    "fromAlpine": "postgres:15-alpine",
     "new": "15",
     "old": "13",
     "version": "13.16-1.pgdg120+1"
   },
   "12-to-15": {
     "from": "postgres:15-bookworm",
+    "fromAlpine": "postgres:15-alpine",
     "new": "15",
     "old": "12",
     "version": "12.20-1.pgdg120+1"
   },
   "13-to-14": {
     "from": "postgres:14-bookworm",
+    "fromAlpine": "postgres:14-alpine",
     "new": "14",
     "old": "13",
     "version": "13.16-1.pgdg120+1"
   },
   "12-to-14": {
     "from": "postgres:14-bookworm",
+    "fromAlpine": "postgres:14-alpine",
     "new": "14",
     "old": "12",
     "version": "12.20-1.pgdg120+1"
   },
   "12-to-13": {
     "from": "postgres:13-bookworm",
+    "fromAlpine": "postgres:13-alpine",
     "new": "13",
     "old": "12",
     "version": "12.20-1.pgdg120+1"
