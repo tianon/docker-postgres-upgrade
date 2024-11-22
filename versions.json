@@ -3,90 +3,90 @@
     "from": "postgres:17-bookworm",
     "new": "17",
     "old": "16",
-    "version": "16.5-1.pgdg120+1"
+    "version": "16.6-1.pgdg120+1"
   },
   "15-to-17": {
     "from": "postgres:17-bookworm",
     "new": "17",
     "old": "15",
-    "version": "15.9-1.pgdg120+1"
+    "version": "15.10-1.pgdg120+1"
   },
   "14-to-17": {
     "from": "postgres:17-bookworm",
     "new": "17",
     "old": "14",
-    "version": "14.14-1.pgdg120+1"
+    "version": "14.15-1.pgdg120+1"
   },
   "13-to-17": {
     "from": "postgres:17-bookworm",
     "new": "17",
     "old": "13",
-    "version": "13.17-1.pgdg120+1"
+    "version": "13.18-1.pgdg120+1"
   },
   "12-to-17": {
     "from": "postgres:17-bookworm",
     "new": "17",
     "old": "12",
-    "version": "12.21-1.pgdg120+1"
+    "version": "12.22-1.pgdg120+1"
   },
   "15-to-16": {
     "from": "postgres:16-bookworm",
     "new": "16",
     "old": "15",
-    "version": "15.9-1.pgdg120+1"
+    "version": "15.10-1.pgdg120+1"
   },
   "14-to-16": {
     "from": "postgres:16-bookworm",
     "new": "16",
     "old": "14",
-    "version": "14.14-1.pgdg120+1"
+    "version": "14.15-1.pgdg120+1"
   },
   "13-to-16": {
     "from": "postgres:16-bookworm",
     "new": "16",
     "old": "13",
-    "version": "13.17-1.pgdg120+1"
+    "version": "13.18-1.pgdg120+1"
   },
   "12-to-16": {
     "from": "postgres:16-bookworm",
     "new": "16",
     "old": "12",
-    "version": "12.21-1.pgdg120+1"
+    "version": "12.22-1.pgdg120+1"
   },
   "14-to-15": {
     "from": "postgres:15-bookworm",
     "new": "15",
     "old": "14",
-    "version": "14.14-1.pgdg120+1"
+    "version": "14.15-1.pgdg120+1"
   },
   "13-to-15": {
     "from": "postgres:15-bookworm",
     "new": "15",
     "old": "13",
-    "version": "13.17-1.pgdg120+1"
+    "version": "13.18-1.pgdg120+1"
   },
   "12-to-15": {
     "from": "postgres:15-bookworm",
     "new": "15",
     "old": "12",
-    "version": "12.21-1.pgdg120+1"
+    "version": "12.22-1.pgdg120+1"
   },
   "13-to-14": {
     "from": "postgres:14-bookworm",
     "new": "14",
     "old": "13",
-    "version": "13.17-1.pgdg120+1"
+    "version": "13.18-1.pgdg120+1"
   },
   "12-to-14": {
     "from": "postgres:14-bookworm",
     "new": "14",
     "old": "12",
-    "version": "12.21-1.pgdg120+1"
+    "version": "12.22-1.pgdg120+1"
   },
   "12-to-13": {
     "from": "postgres:13-bookworm",
     "new": "13",
     "old": "12",
-    "version": "12.21-1.pgdg120+1"
+    "version": "12.22-1.pgdg120+1"
   }
 }
