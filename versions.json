@@ -23,12 +23,6 @@
     "old": "13",
     "version": "13.18-1.pgdg120+1"
   },
-  "12-to-17": {
-    "from": "postgres:17-bookworm",
-    "new": "17",
-    "old": "12",
-    "version": "12.22-1.pgdg120+1"
-  },
   "15-to-16": {
     "from": "postgres:16-bookworm",
     "new": "16",
@@ -47,12 +41,6 @@
     "old": "13",
     "version": "13.18-1.pgdg120+1"
   },
-  "12-to-16": {
-    "from": "postgres:16-bookworm",
-    "new": "16",
-    "old": "12",
-    "version": "12.22-1.pgdg120+1"
-  },
   "14-to-15": {
     "from": "postgres:15-bookworm",
     "new": "15",
@@ -65,28 +53,10 @@
     "old": "13",
     "version": "13.18-1.pgdg120+1"
   },
-  "12-to-15": {
-    "from": "postgres:15-bookworm",
-    "new": "15",
-    "old": "12",
-    "version": "12.22-1.pgdg120+1"
-  },
   "13-to-14": {
     "from": "postgres:14-bookworm",
     "new": "14",
     "old": "13",
     "version": "13.18-1.pgdg120+1"
-  },
-  "12-to-14": {
-    "from": "postgres:14-bookworm",
-    "new": "14",
-    "old": "12",
-    "version": "12.22-1.pgdg120+1"
-  },
-  "12-to-13": {
-    "from": "postgres:13-bookworm",
-    "new": "13",
-    "old": "12",
-    "version": "12.22-1.pgdg120+1"
   }
 }
