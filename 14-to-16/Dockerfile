@@ -11,7 +11,7 @@ RUN sed -i 's/$/ 14/' /etc/apt/sources.list.d/pgdg.list
 RUN set -eux; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-		postgresql-14='14.17-1.pgdg120+1' \
+		postgresql-14='14.18-1.pgdg120+1' \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
