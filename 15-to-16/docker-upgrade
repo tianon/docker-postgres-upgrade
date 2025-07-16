@@ -1,6 +1,34 @@
 #!/bin/bash
 set -e
 
+if [[ -n "$PGUSER" && -z "$PGUID" ]]; then
+	echo "Error: PGUSER is set to '$PGUSER' but PGUID is not set." >&2
+	exit 1
+fi
+
+if [[ ! "$PGUID" =~ ^[0-9]+$ ]]; then
+	echo "Error: PGUID must be an integer. Current value: '$PGUID'" >&2
+	exit 1
+fi
+
+if [[ -n "$PGUSER" && -z "$PGGID" ]]; then
+	PGGID="$PGUID"
+fi
+
+: "${PGUSER:=postgres}"
+
+if [[ -n "$PGGID" && -z "$(getent group "$PGGID")" ]]; then
+    echo "Creating group '$PGUSER' with GID $PGGID..."
+    addgroup --system --gid "$PGGID" "$PGUSER"
+    echo "Group created."
+fi
+
+if [[ -z "$(getent passwd "$PGUSER")" ]]; then
+	echo "User '$PGUSER' does not exist. Creating..."
+	adduser --system --no-create-home --uid "$PGUID" --gid "$PGGID" --home /var/lib/postgresql --disabled-password "$PGUSER"
+	echo "User '$PGUSER' created."
+fi
+
 if [ "$#" -eq 0 -o "${1:0:1}" = '-' ]; then
 	set -- pg_upgrade "$@"
 fi
@@ -8,9 +36,13 @@ fi
 if [ "$1" = 'pg_upgrade' -a "$(id -u)" = '0' ]; then
 	mkdir -p "$PGDATAOLD" "$PGDATANEW"
 	chmod 700 "$PGDATAOLD" "$PGDATANEW"
-	chown postgres .
-	chown -R postgres "$PGDATAOLD" "$PGDATANEW"
-	exec gosu postgres "$BASH_SOURCE" "$@"
+	chown "$PGUSER" .
+	chown -R "$PGUSER" "$PGDATAOLD" "$PGDATANEW"
+	exec gosu "$PGUSER" "$BASH_SOURCE" "$@"
+fi
+
+if [[ ! "$POSTGRES_INITDB_ARGS" =~ ((--username=|-U[[:space:]])) ]]; then
+    POSTGRES_INITDB_ARGS+=" --username=$PGUSER"
 fi
 
 if [ "$1" = 'pg_upgrade' ]; then
