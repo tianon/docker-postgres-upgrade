@@ -9,11 +9,11 @@ RUN set -eux; \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
-ENV PGBINOLD /usr/lib/postgresql/{{ .old }}/bin
-ENV PGBINNEW /usr/lib/postgresql/{{ .new }}/bin
+ENV PGBINOLD=/usr/lib/postgresql/{{ .old }}/bin
+ENV PGBINNEW=/usr/lib/postgresql/{{ .new }}/bin
 
-ENV PGDATAOLD /var/lib/postgresql/{{ .old }}/data
-ENV PGDATANEW /var/lib/postgresql/{{ .new }}/data
+ENV PGDATAOLD=/var/lib/postgresql/{{ .old }}/data
+ENV PGDATANEW=/var/lib/postgresql/{{ .new }}/data
 
 RUN set -eux; \
 	mkdir -p "$PGDATAOLD" "$PGDATANEW"; \
