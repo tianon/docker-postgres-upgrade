@@ -1,62 +1,62 @@
 {
   "16-to-17": {
-    "from": "postgres:17-bookworm",
+    "from": "postgres:17-trixie",
     "new": "17",
     "old": "16",
-    "version": "16.9-1.pgdg120+1"
+    "version": "16.9-1.pgdg130+1"
   },
   "15-to-17": {
-    "from": "postgres:17-bookworm",
+    "from": "postgres:17-trixie",
     "new": "17",
     "old": "15",
-    "version": "15.13-1.pgdg120+1"
+    "version": "15.13-1.pgdg130+1"
   },
   "14-to-17": {
-    "from": "postgres:17-bookworm",
+    "from": "postgres:17-trixie",
     "new": "17",
     "old": "14",
-    "version": "14.18-1.pgdg120+1"
+    "version": "14.18-1.pgdg130+1"
   },
   "13-to-17": {
-    "from": "postgres:17-bookworm",
+    "from": "postgres:17-trixie",
     "new": "17",
     "old": "13",
-    "version": "13.21-1.pgdg120+1"
+    "version": "13.21-1.pgdg130+1"
   },
   "15-to-16": {
-    "from": "postgres:16-bookworm",
+    "from": "postgres:16-trixie",
     "new": "16",
     "old": "15",
-    "version": "15.13-1.pgdg120+1"
+    "version": "15.13-1.pgdg130+1"
   },
   "14-to-16": {
-    "from": "postgres:16-bookworm",
+    "from": "postgres:16-trixie",
     "new": "16",
     "old": "14",
-    "version": "14.18-1.pgdg120+1"
+    "version": "14.18-1.pgdg130+1"
   },
   "13-to-16": {
-    "from": "postgres:16-bookworm",
+    "from": "postgres:16-trixie",
     "new": "16",
     "old": "13",
-    "version": "13.21-1.pgdg120+1"
+    "version": "13.21-1.pgdg130+1"
   },
   "14-to-15": {
-    "from": "postgres:15-bookworm",
+    "from": "postgres:15-trixie",
     "new": "15",
     "old": "14",
-    "version": "14.18-1.pgdg120+1"
+    "version": "14.18-1.pgdg130+1"
   },
   "13-to-15": {
-    "from": "postgres:15-bookworm",
+    "from": "postgres:15-trixie",
     "new": "15",
     "old": "13",
-    "version": "13.21-1.pgdg120+1"
+    "version": "13.21-1.pgdg130+1"
   },
   "13-to-14": {
-    "from": "postgres:14-bookworm",
+    "from": "postgres:14-trixie",
     "new": "14",
     "old": "13",
-    "version": "13.21-1.pgdg120+1"
+    "version": "13.21-1.pgdg130+1"
   }
 }

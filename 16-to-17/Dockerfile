@@ -4,14 +4,14 @@
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
 
-FROM postgres:17-bookworm
+FROM postgres:17-trixie
 
 RUN sed -i 's/$/ 16/' /etc/apt/sources.list.d/pgdg.list
 
 RUN set -eux; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-		postgresql-16='16.9-1.pgdg120+1' \
+		postgresql-16='16.9-1.pgdg130+1' \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
