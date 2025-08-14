@@ -11,7 +11,7 @@ RUN sed -i 's/$/ 13/' /etc/apt/sources.list.d/pgdg.list
 RUN set -eux; \
 	apt-get update; \
 	apt-get install -y --no-install-recommends \
-		postgresql-13='13.21-1.pgdg130+1' \
+		postgresql-13='13.22-1.pgdg13+1' \
 	; \
 	rm -rf /var/lib/apt/lists/*
 
