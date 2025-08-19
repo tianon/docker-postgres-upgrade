@@ -13,6 +13,10 @@ if [ "$1" = 'pg_upgrade' -a "$(id -u)" = '0' ]; then
 	exec gosu postgres "$BASH_SOURCE" "$@"
 fi
 
+if [[ -n "$PGUSER" && ! "$POSTGRES_INITDB_ARGS" =~ ((--username=|-U[[:space:]])) ]]; then
+    POSTGRES_INITDB_ARGS+=" --username=$PGUSER"
+fi
+
 if [ "$1" = 'pg_upgrade' ]; then
 	if [ ! -s "$PGDATANEW/PG_VERSION" ]; then
 		PGDATA="$PGDATANEW" eval "initdb $POSTGRES_INITDB_ARGS"
