@@ -4,7 +4,7 @@ RUN sed -i 's/$/ {{ .old }}/' /etc/apt/sources.list.d/pgdg.list
 
 RUN set -eux; \
 	apt-get update; \
-	apt-get install -y --no-install-recommends \
+	apt-get install -y --no-install-recommends locales locales-all \
 		postgresql-{{ .old }}={{ .version | @sh }} \
 	; \
 	rm -rf /var/lib/apt/lists/*
