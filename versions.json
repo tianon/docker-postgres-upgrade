@@ -1,4 +1,34 @@
 {
+  "17-to-18": {
+    "from": "postgres:18-trixie",
+    "new": "18",
+    "old": "17",
+    "version": "17.6-2.pgdg13+1"
+  },
+  "16-to-18": {
+    "from": "postgres:18-trixie",
+    "new": "18",
+    "old": "16",
+    "version": "16.10-1.pgdg13+1"
+  },
+  "15-to-18": {
+    "from": "postgres:18-trixie",
+    "new": "18",
+    "old": "15",
+    "version": "15.14-1.pgdg13+1"
+  },
+  "14-to-18": {
+    "from": "postgres:18-trixie",
+    "new": "18",
+    "old": "14",
+    "version": "14.19-1.pgdg13+1"
+  },
+  "13-to-18": {
+    "from": "postgres:18-trixie",
+    "new": "18",
+    "old": "13",
+    "version": "13.22-1.pgdg13+1"
+  },
   "16-to-17": {
     "from": "postgres:17-trixie",
     "new": "17",
