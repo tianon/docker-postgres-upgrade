@@ -6,39 +6,43 @@ This is a PoC for using `pg_upgrade` inside Docker -- learn from it, adapt it fo
 
 Tags of this image are of the format `OLD-to-NEW`, where `OLD` represents the version of PostgreSQL you are _currently_ running, and `NEW` represents the version of PostgreSQL you would like to upgrade to.
 
-In order to get good performance, it is recommended to run this image with `docker run image --link` (see [`pg_upgrade` documentation](https://www.postgresql.org/docs/9.5/static/pgupgrade.html) for more details).
+In order to get good performance, it is recommended to run this image with `docker run image --link` (see [`pg_upgrade` documentation](https://www.postgresql.org/docs/18/pgupgrade.html) for more details).
 
 For this to be feasible, your directory structure should look something like this: (if yours does not, either adjust it, or scroll down to see the alternate pattern for running this image)
 
 ```console
 $ find DIR -mindepth 2 -maxdepth 2
-DIR/OLD/data
-DIR/NEW/data
+DIR/OLD/docker
+DIR/NEW/docker
 
 $ docker run --rm \
-	-v DIR:/var/lib/postgresql \
+	--mount 'type=bind,src=DIR,dst=/var/lib/postgresql' \
+	--env 'PGDATAOLD=/var/lib/postgresql/OLD/docker' \
+	--env 'PGDATANEW=/var/lib/postgresql/NEW/docker' \
 	tianon/postgres-upgrade:OLD-to-NEW \
 	--link
 
 ...
 ```
 
-More concretely, assuming `OLD` of `9.4`, `NEW` of `9.5`, and `DIR` of `/mnt/bigdrive/postgresql`:
+More concretely, assuming `OLD` of `17`, `NEW` of `18`, and `DIR` of `/mnt/bigdrive/postgresql`:
 
 ```console
 $ find /mnt/bigdrive/postgresql -mindepth 2 -maxdepth 2
-/mnt/bigdrive/postgresql/9.4/data
-/mnt/bigdrive/postgresql/9.5/data
+/mnt/bigdrive/postgresql/17/docker
+/mnt/bigdrive/postgresql/18/docker
 
 $ docker run --rm \
-	-v /mnt/bigdrive/postgresql:/var/lib/postgresql \
-	tianon/postgres-upgrade:9.4-to-9.5 \
+	--mount 'type=bind,src=/mnt/bigdrive/postgresql,dst=/var/lib/postgresql' \
+	--env 'PGDATAOLD=/var/lib/postgresql/17/docker' \
+	--env 'PGDATANEW=/var/lib/postgresql/18/docker' \
+	tianon/postgres-upgrade:17-to-18 \
 	--link
 
 ...
 ```
 
-(which assumes that your previous `postgres:9.4` instance was running with `-v /mnt/bigdrive/postgresql/9.4/data:/var/lib/postgresql/data`, and your new `postgres:9.5` instance will run with `-v /mnt/bigdrive/postgresql/9.5/data:/var/lib/postgresql/data`)
+(as in, your previous `postgres:17` instance was running with `-v /mnt/bigdrive/postgresql/17/docker:/var/lib/postgresql/data`, and your new `postgres:18` instance will run with `-v /mnt/bigdrive/postgresql/18/docker:/var/lib/postgresql`, which is explicitly accounting for [docker-library/postgres#1259](https://github.com/docker-library/postgres/pull/1259))
 
 ---
 
@@ -46,25 +50,29 @@ If your two directories (denoted below as `PGDATAOLD` and `PGDATANEW`) do not fo
 
 ```console
 $ docker run --rm \
-	-v PGDATAOLD:/var/lib/postgresql/OLD/data \
-	-v PGDATANEW:/var/lib/postgresql/NEW/data \
+	--mount 'type=bind,src=PGDATAOLD,dst=/var/lib/postgresql/OLD/docker' \
+	--mount 'type=bind,src=PGDATANEW,dst=/var/lib/postgresql/NEW/docker' \
+	--env 'PGDATAOLD=/var/lib/postgresql/OLD/docker' \
+	--env 'PGDATANEW=/var/lib/postgresql/NEW/docker' \
 	tianon/postgres-upgrade:OLD-to-NEW
 
 ...
 ```
 
-More concretely, assuming `OLD` of `9.4`, `NEW` of `9.5`, `PGDATAOLD` of `/mnt/bigdrive/postgresql-9.4`, and `PGDATANEW` of `/mnt/bigdrive/postgresql-9.5`:
+More concretely, assuming `OLD` of `17`, `NEW` of `18`, `PGDATAOLD` of `/mnt/bigdrive/postgresql-17`, and `PGDATANEW` of `/mnt/bigdrive/postgresql-18`:
 
 ```console
 $ docker run --rm \
-	-v /mnt/bigdrive/postgresql-9.4:/var/lib/postgresql/9.4/data \
-	-v /mnt/bigdrive/postgresql-9.5:/var/lib/postgresql/9.5/data \
-	tianon/postgres-upgrade:9.4-to-9.5
+	--mount 'type=bind,src=/mnt/bigdrive/postgresql-17,dst=/var/lib/postgresql/17/docker' \
+	--mount 'type=bind,src=/mnt/bigdrive/postgresql-18,dst=/var/lib/postgresql/18/docker' \
+	--env 'PGDATAOLD=/var/lib/postgresql/17/docker' \
+	--env 'PGDATANEW=/var/lib/postgresql/18/docker' \
+	tianon/postgres-upgrade:17-to-18
 
 ...
 ```
 
-(which assumes that your previous `postgres:9.4` instance was running with `-v /mnt/bigdrive/postgresql-9.4:/var/lib/postgresql/data`, and your new `postgres:9.5` instance will run with `-v /mnt/bigdrive/postgresql-9.5:/var/lib/postgresql/data`)
+(which assumes that your previous `postgres:17` instance was running with `-v /mnt/bigdrive/postgresql-17:/var/lib/postgresql/data`, and your new `postgres:18` instance will run with `-v /mnt/bigdrive/postgresql-18:/var/lib/postgresql/18/docker`, although that's [not recommended](https://github.com/docker-library/postgres/pull/1259#issuecomment-3433788598))
 
 ---
 
@@ -73,14 +81,16 @@ Putting it all together:
 ```console
 $ mkdir -p postgres-upgrade-testing
 $ cd postgres-upgrade-testing
-$ OLD='9.4'
-$ NEW='9.5'
+$ OLD='17'
+$ NEW='18'
 
-$ docker pull "postgres:$OLD"
 $ docker run -dit \
 	--name postgres-upgrade-testing \
-	-e POSTGRES_PASSWORD=password \
-	-v "$PWD/$OLD/data":/var/lib/postgresql/data \
+	--env POSTGRES_PASSWORD='password' \
+	--env POSTGRES_INITDB_ARGS='--data-checksums' \
+	--mount "type=bind,src=$PWD,dst=/var/lib/postgresql" \
+	--env PGDATA="/var/lib/postgresql/$OLD/docker" \
+	--pull always \
 	"postgres:$OLD"
 $ sleep 5
 $ docker logs --tail 100 postgres-upgrade-testing
@@ -95,19 +105,25 @@ $ docker stop postgres-upgrade-testing
 $ docker rm postgres-upgrade-testing
 
 $ docker run --rm \
-	-v "$PWD":/var/lib/postgresql \
+	--env POSTGRES_INITDB_ARGS='--data-checksums' \
+	--mount "type=bind,src=$PWD,dst=/var/lib/postgresql" \
+	--env "PGDATAOLD=/var/lib/postgresql/$OLD/docker" \
+	--env "PGDATANEW=/var/lib/postgresql/$NEW/docker" \
+	--pull always \
 	"tianon/postgres-upgrade:$OLD-to-$NEW" \
 	--link
 
-$ docker pull "postgres:$NEW"
 $ docker run -dit \
 	--name postgres-upgrade-testing \
-	-e POSTGRES_PASSWORD=password \
-	-v "$PWD/$NEW/data":/var/lib/postgresql/data \
+	--env POSTGRES_PASSWORD='password' \
+	--env POSTGRES_INITDB_ARGS='--data-checksums' \
+	--mount "type=bind,src=$PWD,dst=/var/lib/postgresql" \
+	--env PGDATA="/var/lib/postgresql/$NEW/docker" \
+	--pull always \
 	"postgres:$NEW"
 $ sleep 5
 $ docker logs --tail 100 postgres-upgrade-testing
 
-$ # can now safely remove "$OLD"
+$ # can now (probably) safely remove "$OLD"
 $ sudo rm -rf "$OLD"
 ```
