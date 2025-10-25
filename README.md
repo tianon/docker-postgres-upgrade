@@ -42,7 +42,7 @@ $ docker run --rm \
 ...
 ```
 
-(as in, your previous `postgres:17` instance was running with `-v /mnt/bigdrive/postgresql/17/docker:/var/lib/postgresql/data`, and your new `postgres:18` instance will run with `-v /mnt/bigdrive/postgresql/18/docker:/var/lib/postgresql`, which is explicitly accounting for [docker-library/postgres#1259](https://github.com/docker-library/postgres/pull/1259))
+(as in, your previous `postgres:17` instance was running with `-v /mnt/bigdrive/postgresql/17/docker:/var/lib/postgresql/data`, and your new `postgres:18` instance will run with `-v /mnt/bigdrive/postgresql:/var/lib/postgresql`, which is explicitly accounting for [docker-library/postgres#1259](https://github.com/docker-library/postgres/pull/1259))
 
 ---
 
