@@ -10,7 +10,7 @@ RUN sed -i 's/$/ 16/' /etc/apt/sources.list.d/pgdg.list
 
 RUN set -eux; \
 	apt-get install --update -y --no-install-recommends \
-		postgresql-16='16.10-1.pgdg13+1' \
+		postgresql-16='16.11-1.pgdg13+1' \
 	; \
 	apt-get dist-clean
 

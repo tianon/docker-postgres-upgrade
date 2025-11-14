@@ -3,90 +3,90 @@
     "from": "postgres:18-trixie",
     "new": "18",
     "old": "17",
-    "version": "17.6-2.pgdg13+1"
+    "version": "17.7-3.pgdg13+1"
   },
   "16-to-18": {
     "from": "postgres:18-trixie",
     "new": "18",
     "old": "16",
-    "version": "16.10-1.pgdg13+1"
+    "version": "16.11-1.pgdg13+1"
   },
   "15-to-18": {
     "from": "postgres:18-trixie",
     "new": "18",
     "old": "15",
-    "version": "15.14-1.pgdg13+1"
+    "version": "15.15-1.pgdg13+1"
   },
   "14-to-18": {
     "from": "postgres:18-trixie",
     "new": "18",
     "old": "14",
-    "version": "14.19-1.pgdg13+1"
+    "version": "14.20-1.pgdg13+1"
   },
   "13-to-18": {
     "from": "postgres:18-trixie",
     "new": "18",
     "old": "13",
-    "version": "13.22-1.pgdg13+1"
+    "version": "13.23-1.pgdg13+1"
   },
   "16-to-17": {
     "from": "postgres:17-trixie",
     "new": "17",
     "old": "16",
-    "version": "16.10-1.pgdg13+1"
+    "version": "16.11-1.pgdg13+1"
   },
   "15-to-17": {
     "from": "postgres:17-trixie",
     "new": "17",
     "old": "15",
-    "version": "15.14-1.pgdg13+1"
+    "version": "15.15-1.pgdg13+1"
   },
   "14-to-17": {
     "from": "postgres:17-trixie",
     "new": "17",
     "old": "14",
-    "version": "14.19-1.pgdg13+1"
+    "version": "14.20-1.pgdg13+1"
   },
   "13-to-17": {
     "from": "postgres:17-trixie",
     "new": "17",
     "old": "13",
-    "version": "13.22-1.pgdg13+1"
+    "version": "13.23-1.pgdg13+1"
   },
   "15-to-16": {
     "from": "postgres:16-trixie",
     "new": "16",
     "old": "15",
-    "version": "15.14-1.pgdg13+1"
+    "version": "15.15-1.pgdg13+1"
   },
   "14-to-16": {
     "from": "postgres:16-trixie",
     "new": "16",
     "old": "14",
-    "version": "14.19-1.pgdg13+1"
+    "version": "14.20-1.pgdg13+1"
   },
   "13-to-16": {
     "from": "postgres:16-trixie",
     "new": "16",
     "old": "13",
-    "version": "13.22-1.pgdg13+1"
+    "version": "13.23-1.pgdg13+1"
   },
   "14-to-15": {
     "from": "postgres:15-trixie",
     "new": "15",
     "old": "14",
-    "version": "14.19-1.pgdg13+1"
+    "version": "14.20-1.pgdg13+1"
   },
   "13-to-15": {
     "from": "postgres:15-trixie",
     "new": "15",
     "old": "13",
-    "version": "13.22-1.pgdg13+1"
+    "version": "13.23-1.pgdg13+1"
   },
   "13-to-14": {
     "from": "postgres:14-trixie",
     "new": "14",
     "old": "13",
-    "version": "13.22-1.pgdg13+1"
+    "version": "13.23-1.pgdg13+1"
   }
 }
