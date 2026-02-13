@@ -10,7 +10,7 @@ RUN sed -i 's/$/ 17/' /etc/apt/sources.list.d/pgdg.list
 
 RUN set -eux; \
 	apt-get install --update -y --no-install-recommends \
-		postgresql-17='17.7-3.pgdg13+1' \
+		postgresql-17='17.8-1.pgdg13+1' \
 	; \
 	apt-get dist-clean
 
