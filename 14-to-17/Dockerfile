@@ -10,7 +10,7 @@ RUN sed -i 's/$/ 14/' /etc/apt/sources.list.d/pgdg.list
 
 RUN set -eux; \
 	apt-get install --update -y --no-install-recommends \
-		postgresql-14='14.21-1.pgdg13+1' \
+		postgresql-14='14.22-1.pgdg13+1' \
 	; \
 	apt-get dist-clean
 
