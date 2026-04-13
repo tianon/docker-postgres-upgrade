@@ -21,7 +21,7 @@ RUN set -eux; \
 	"$PGBINNEW/postgres" --version
 
 ENV PGDATAOLD /var/lib/postgresql/17/data
-ENV PGDATANEW /var/lib/postgresql/18/docker
+ENV PGDATANEW /var/lib/postgresql/18/data
 
 RUN install \
 		--verbose \
