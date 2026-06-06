@@ -13,7 +13,7 @@ jobs:
     name: Check For Uncomitted Changes
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: tianon/actions/checkout@581498642ee39d41dc3a801d22b3f7f42a95acc7 # HEAD
       - name: Clean
         run: rm -rf */
       - name: Apply Templates
