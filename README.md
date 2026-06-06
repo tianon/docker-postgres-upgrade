@@ -127,3 +127,12 @@ $ docker logs --tail 100 postgres-upgrade-testing
 $ # can now (probably) safely remove "$OLD"
 $ sudo rm -rf "$OLD"
 ```
+
+## Troubleshooting
+
+### Wrong default user
+Symptom: `connection to server on socket "/var/lib/postgresql/.s.PGSQL.50432" failed: FATAL:  role "postgres" does not exist`
+
+Symptom: `database user "postgres" is not the install user`
+
+Solution: Pass your PostgreSQL init user at `docker run -e PGUSER="your-init-user"`
