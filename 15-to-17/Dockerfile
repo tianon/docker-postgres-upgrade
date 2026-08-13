@@ -10,7 +10,7 @@ RUN sed -i 's/$/ 15/' /etc/apt/sources.list.d/pgdg.list
 
 RUN set -eux; \
 	apt-get install --update -y --no-install-recommends \
-		postgresql-15='15.18-1.pgdg13+1' \
+		postgresql-15='15.19-1.pgdg13+2' \
 	; \
 	apt-get dist-clean
 
