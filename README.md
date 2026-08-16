@@ -127,3 +127,8 @@ $ docker logs --tail 100 postgres-upgrade-testing
 $ # can now (probably) safely remove "$OLD"
 $ sudo rm -rf "$OLD"
 ```
+## Upgrading with extensions:
+If your current postgres installation has extensions installed, for example [TimescaleDB](https://www.timescale.com/), you'll have to create a custom container that has the needed extensions installed in both the old and new version of Postgres.
+Additionally, supplying an option to pre-load any required libraries in the upgrade process is needed (`"-c shared_preload_libraries=YOUR_PLUGIN"`).
+
+For a simple example with TimescaleDB, refer to [this comment](https://github.com/timescale/timescaledb/issues/2260#issuecomment-686786971).
