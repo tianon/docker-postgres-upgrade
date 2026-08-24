@@ -1,20 +1,41 @@
-FROM postgres:%%POSTGRES_NEW%%-%%SUITE%%
+FROM {{ .from }}
 
-RUN sed -i 's/$/ %%POSTGRES_OLD%%/' /etc/apt/sources.list.d/pgdg.list
+RUN sed -i 's/$/ {{ .old }}/' /etc/apt/sources.list.d/pgdg.list
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-%%POSTGRES_OLD%%=%%POSTGRES_OLD_VERSION%% \
-		postgresql-contrib-%%POSTGRES_OLD%%=%%POSTGRES_OLD_VERSION%% \
-	&& rm -rf /var/lib/apt/lists/*
+RUN set -eux; \
+	apt-get install --update -y --no-install-recommends \
+		postgresql-{{ .old }}={{ .version | @sh }} \
+	; \
+	apt-get dist-clean
 
-ENV PGBINOLD /usr/lib/postgresql/%%POSTGRES_OLD%%/bin
-ENV PGBINNEW /usr/lib/postgresql/%%POSTGRES_NEW%%/bin
+ENV PGBINOLD /usr/lib/postgresql/{{ .old }}/bin
+ENV PGBINNEW /usr/lib/postgresql/{{ .new }}/bin
+RUN set -eux; \
+	"$PGBINOLD/postgres" --version; \
+	"$PGBINNEW/postgres" --version
 
-ENV PGDATAOLD /var/lib/postgresql/%%POSTGRES_OLD%%/data
-ENV PGDATANEW /var/lib/postgresql/%%POSTGRES_NEW%%/data
+{{
+	def dir($ver):
+		"/var/lib/postgresql/\($ver)/\(
+			# TODO swap 100% from /data to /docker (https://github.com/docker-library/postgres/pull/1259)
+			if IN($ver; "13", "14", "15", "16", "17") then
+				"data"
+			else
+				"docker"
+			end
+		)"
+-}}
+ENV PGDATAOLD {{ dir(.old) }}
+ENV PGDATANEW {{ dir(.new) }}
 
-RUN mkdir -p "$PGDATAOLD" "$PGDATANEW" \
-	&& chown -R postgres:postgres /var/lib/postgresql
+RUN install \
+		--verbose \
+		--owner postgres \
+		--group postgres \
+		--mode 1777 \
+		--directory \
+		"$PGDATAOLD" \
+		"$PGDATANEW"
 
 WORKDIR /var/lib/postgresql
 

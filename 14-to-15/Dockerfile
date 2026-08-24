@@ -1,19 +1,36 @@
-FROM postgres:15-bullseye
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "apply-templates.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
+FROM postgres:15-trixie
 
 RUN sed -i 's/$/ 14/' /etc/apt/sources.list.d/pgdg.list
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		postgresql-14=14.8-1.pgdg110+1 \
-	&& rm -rf /var/lib/apt/lists/*
+RUN set -eux; \
+	apt-get install --update -y --no-install-recommends \
+		postgresql-14='14.24-1.pgdg13+2' \
+	; \
+	apt-get dist-clean
 
 ENV PGBINOLD /usr/lib/postgresql/14/bin
 ENV PGBINNEW /usr/lib/postgresql/15/bin
+RUN set -eux; \
+	"$PGBINOLD/postgres" --version; \
+	"$PGBINNEW/postgres" --version
 
 ENV PGDATAOLD /var/lib/postgresql/14/data
 ENV PGDATANEW /var/lib/postgresql/15/data
 
-RUN mkdir -p "$PGDATAOLD" "$PGDATANEW" \
-	&& chown -R postgres:postgres /var/lib/postgresql
+RUN install \
+		--verbose \
+		--owner postgres \
+		--group postgres \
+		--mode 1777 \
+		--directory \
+		"$PGDATAOLD" \
+		"$PGDATANEW"
 
 WORKDIR /var/lib/postgresql
 
